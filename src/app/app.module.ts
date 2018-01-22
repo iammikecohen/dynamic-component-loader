@@ -11,6 +11,16 @@ const manifests: DynamicComponentManifest[] = [
     path: 'dynamic-message', // some globally-unique identifier, used internally by the router
     loadChildren: './dynamic-modules/message/message.module#MessageModule',
   },
+  {
+    componentId: 'secondComponent',
+    path: 'comp2',
+    loadChildren: './dynamic-modules/message/message.module#MessageModule',
+  },
+  {
+    componentId: 'third',
+    path: 'component3',
+    loadChildren: './dynamic-modules/message/message.module#MessageModule',
+  },
 ];
 
 @NgModule({
