@@ -14,8 +14,8 @@ import { MessageComponent } from './message.component';
   imports: [
     DynamicComponentLoaderModule.forChild([
       MessageComponent,
-      ThirdcomponentComponent,
       Number2Component,
+      ThirdcomponentComponent,
     ]),
   ],
 })
