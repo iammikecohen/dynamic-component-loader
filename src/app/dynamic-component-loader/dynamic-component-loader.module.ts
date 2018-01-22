@@ -26,7 +26,7 @@ export class DynamicComponentLoaderModule {
       ],
     };
   }
-  static forChild(component: Type<any>): ModuleWithProviders {
+  static forChild(component: Type<any> | Array<Type<any>>): ModuleWithProviders {
     return {
       ngModule: DynamicComponentLoaderModule,
       providers: [

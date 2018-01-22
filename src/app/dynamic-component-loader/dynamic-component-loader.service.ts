@@ -18,21 +18,22 @@ export class DynamicComponentLoader {
   getComponentFactory<T>(componentId: string, injector?: Injector): Observable<ComponentFactory<T>> {
     const manifest = this.manifests
       .find(m => m.componentId === componentId);
+    const index = this.manifests
+      .findIndex(m => m.componentId === componentId);
     if (!manifest) {
       return ObservableThrow(`DynamicComponentLoader: Unknown componentId "${componentId}"`);
     }
-
     const p = this.loader.load(manifest.loadChildren)
       .then(ngModuleFactory => {
         const moduleRef = ngModuleFactory.create(injector || this.injector);
         const dynamicComponentType = moduleRef.injector.get(DYNAMIC_COMPONENT);
-        if (!dynamicComponentType) {
+        if (!dynamicComponentType[index]) {
           throw new Error(
             `DynamicComponentLoader: Dynamic module for componentId "${componentId}" does not contain DYNAMIC_COMPONENT as a provider.`,
           );
         }
 
-        return moduleRef.componentFactoryResolver.resolveComponentFactory<T>(dynamicComponentType);
+        return moduleRef.componentFactoryResolver.resolveComponentFactory<T>(dynamicComponentType[index]);
       });
 
     return ObservableFromPromise(p);
